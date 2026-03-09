@@ -1,4 +1,4 @@
-# MoodMuse 🎵
+# MoodMuse 
 
 An iOS app that recommends Spotify music based on how you're feeling — detected manually, through text, or by analysing your facial expression via the camera.
 
