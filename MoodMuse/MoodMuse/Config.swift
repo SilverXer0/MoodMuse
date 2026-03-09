@@ -4,7 +4,7 @@
 import Foundation
 
 enum SpotifyConfig {
-    static let clientID    = "2fb278b940704069ab0a6d2b72f64f10"
+    static let clientID    = "Spotify_Client_ID"
     static let redirectURI = "moodmuse://callback"
 
     static let scopes = [
