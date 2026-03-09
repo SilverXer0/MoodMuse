@@ -44,17 +44,17 @@ final class FaceAnalysisService {
         let pts = outerLips.normalizedPoints
         guard pts.count >= 8 else { return .calm }
 
-        let leftCorner   = pts[0]
-        let rightCorner  = pts[pts.count / 2]
-        let topMid       = pts[pts.count / 4]
-        let botMid       = pts[pts.count * 3 / 4]
+        let leftCorner = pts[0]
+        let rightCorner = pts[pts.count / 2]
+        let topMid = pts[pts.count / 4]
+        let botMid = pts[pts.count * 3 / 4]
 
-        let cornerMidY   = CGFloat(leftCorner.y + rightCorner.y) / 2.0
+        let cornerMidY = CGFloat(leftCorner.y + rightCorner.y) / 2.0
         let mouthCenterY = CGFloat(topMid.y + botMid.y) / 2.0
-        let delta        = cornerMidY - mouthCenterY
+        let delta = cornerMidY - mouthCenterY
 
         var browTense = false
-        if let leftBrow  = landmarks.leftEyebrow,
+        if let leftBrow = landmarks.leftEyebrow,
            let rightBrow = landmarks.rightEyebrow {
             let lAvg = leftBrow.normalizedPoints.map(\.y).reduce(0, +) / CGFloat(leftBrow.pointCount)
             let rAvg = rightBrow.normalizedPoints.map(\.y).reduce(0, +) / CGFloat(rightBrow.pointCount)

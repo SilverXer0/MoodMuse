@@ -26,6 +26,6 @@ enum SpotifyConfig {
 
     // MARK: - Endpoints
     static let authorizationURL = URL(string: "https://accounts.spotify.com/authorize")!
-    static let tokenURL         = URL(string: "https://accounts.spotify.com/api/token")!
-    static let apiBaseURL       = URL(string: "https://api.spotify.com/v1")!
+    static let tokenURL = URL(string: "https://accounts.spotify.com/api/token")!
+    static let apiBaseURL = URL(string: "https://api.spotify.com/v1")!
 }

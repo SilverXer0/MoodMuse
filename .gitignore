@@ -11,3 +11,6 @@ Package.resolved
 
 # macOS cruft
 .DS_Store
+
+# Spotify credentials
+MoodMuse/MoodMuse/Config.swift

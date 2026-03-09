@@ -7,10 +7,10 @@ import AVFoundation
 @MainActor
 final class AppState: ObservableObject {
 
-    let auth    = SpotifyAuthService()
-    let api:    SpotifyAPIService
+    let auth = SpotifyAuthService()
+    let api: SpotifyAPIService
     let storage = StorageService()
-    let face    = FaceAnalysisService()
+    let face = FaceAnalysisService()
 
     @Published var currentMood: Mood?
     @Published var tracks: [Track] = []
@@ -26,18 +26,18 @@ final class AppState: ObservableObject {
     private var playerObserver: Any?
 
     init() {
-        api         = SpotifyAPIService(auth: auth)
-        favorites   = storage.getFavorites()
+        api = SpotifyAPIService(auth: auth)
+        favorites = storage.getFavorites()
         recentMoods = storage.getRecentMoods()
     }
 
     // MARK: - Recommendations
 
     func fetchRecommendations(for mood: Mood) async {
-        currentMood  = mood
+        currentMood = mood
         storage.addRecentMood(mood)
-        recentMoods  = storage.getRecentMoods()
-        isLoading    = true
+        recentMoods = storage.getRecentMoods()
+        isLoading = true
         errorMessage = nil
         defer { isLoading = false }
 
@@ -48,7 +48,7 @@ final class AppState: ObservableObject {
             } catch {
                 fetched = try await api.searchTracks(query: mood.searchQuery)
             }
-            tracks              = fetched
+            tracks = fetched
             showRecommendations = true
         } catch {
             errorMessage = error.localizedDescription
@@ -82,9 +82,9 @@ final class AppState: ObservableObject {
 
         playerObserver.map(NotificationCenter.default.removeObserver)
         player?.pause()
-        player       = AVPlayer(url: url)
+        player = AVPlayer(url: url)
         playingTrack = track
-        isPlaying    = true
+        isPlaying = true
         player?.play()
 
         playerObserver = NotificationCenter.default.addObserver(
@@ -92,7 +92,7 @@ final class AppState: ObservableObject {
             object: player?.currentItem,
             queue: .main
         ) { [weak self] _ in
-            self?.isPlaying    = false
+            self?.isPlaying = false
             self?.playingTrack = nil
         }
 
@@ -108,8 +108,8 @@ final class AppState: ObservableObject {
 
     func stopPlayback() {
         player?.pause()
-        player       = nil
-        isPlaying    = false
+        player = nil
+        isPlaying = false
         playingTrack = nil
         playerObserver.map(NotificationCenter.default.removeObserver)
     }

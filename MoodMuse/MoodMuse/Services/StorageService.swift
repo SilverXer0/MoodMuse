@@ -6,8 +6,8 @@ import Foundation
 final class StorageService {
 
     private let defaults = UserDefaults.standard
-    private let favKey   = "mm_favorite_tracks"
-    private let moodKey  = "mm_recent_moods"
+    private let favKey = "mm_favorite_tracks"
+    private let moodKey = "mm_recent_moods"
 
     // MARK: - Favourites
 
@@ -37,7 +37,7 @@ final class StorageService {
     // MARK: - Recent Moods
 
     func getRecentMoods() -> [Mood] {
-        guard let data  = defaults.data(forKey: moodKey),
+        guard let data = defaults.data(forKey: moodKey),
               let moods = try? JSONDecoder().decode([Mood].self, from: data)
         else { return [] }
         return moods

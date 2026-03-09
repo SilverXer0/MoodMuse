@@ -43,9 +43,9 @@ struct Track: Codable, Identifiable, Equatable, Hashable {
 
     enum CodingKeys: String, CodingKey {
         case id, name, artists, album, uri, popularity
-        case previewUrl   = "preview_url"
+        case previewUrl = "preview_url"
         case externalUrls = "external_urls"
-        case durationMs   = "duration_ms"
+        case durationMs = "duration_ms"
     }
 
     var artistNames: String { artists.map(\.name).joined(separator: ", ") }
