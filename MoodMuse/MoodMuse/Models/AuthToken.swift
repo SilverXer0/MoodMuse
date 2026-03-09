@@ -14,10 +14,10 @@ struct AuthToken: Codable {
     }
 
     init(from response: TokenResponse) {
-        self.accessToken  = response.accessToken
+        self.accessToken = response.accessToken
         self.refreshToken = response.refreshToken
-        self.expiresAt    = Date().addingTimeInterval(TimeInterval(response.expiresIn))
-        self.tokenType    = response.tokenType
+        self.expiresAt = Date().addingTimeInterval(TimeInterval(response.expiresIn))
+        self.tokenType = response.tokenType
     }
 }
 
@@ -29,10 +29,10 @@ struct TokenResponse: Codable {
     let refreshToken: String?
 
     enum CodingKeys: String, CodingKey {
-        case accessToken  = "access_token"
-        case tokenType    = "token_type"
+        case accessToken = "access_token"
+        case tokenType = "token_type"
         case scope
-        case expiresIn    = "expires_in"
+        case expiresIn = "expires_in"
         case refreshToken = "refresh_token"
     }
 }

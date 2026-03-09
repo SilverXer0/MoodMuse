@@ -26,10 +26,10 @@ final class SpotifyAuthService: NSObject, ObservableObject {
     // MARK: - Auth Flow
 
     func startAuthFlow() {
-        let verifier   = generateCodeVerifier()
-        codeVerifier   = verifier
-        let challenge  = codeChallenge(from: verifier)
-        let state      = UUID().uuidString
+        let verifier = generateCodeVerifier()
+        codeVerifier = verifier
+        let challenge = codeChallenge(from: verifier)
+        let state = UUID().uuidString
 
         var comps = URLComponents(url: SpotifyConfig.authorizationURL, resolvingAgainstBaseURL: false)!
         comps.queryItems = [
@@ -42,7 +42,7 @@ final class SpotifyAuthService: NSObject, ObservableObject {
             URLQueryItem(name: "code_challenge_method", value: "S256")
         ]
         guard let authURL = comps.url,
-              let scheme  = URL(string: SpotifyConfig.redirectURI)?.scheme else { return }
+              let scheme = URL(string: SpotifyConfig.redirectURI)?.scheme else { return }
 
         let session = ASWebAuthenticationSession(url: authURL, callbackURLScheme: scheme) { [weak self] url, error in
             guard let self, error == nil, let url else { return }
@@ -55,13 +55,13 @@ final class SpotifyAuthService: NSObject, ObservableObject {
     }
 
     func handleCallback(url: URL) async {
-        guard let comps    = URLComponents(url: url, resolvingAgainstBaseURL: false),
-              let code     = comps.queryItems?.first(where: { $0.name == "code" })?.value,
+        guard let comps = URLComponents(url: url, resolvingAgainstBaseURL: false),
+              let code = comps.queryItems?.first(where: { $0.name == "code" })?.value,
               let verifier = codeVerifier else { return }
         do {
             let token = try await exchangeCode(code, verifier: verifier)
             persist(token)
-            currentToken    = token
+            currentToken = token
             isAuthenticated = true
         } catch {
             print("[SpotifyAuth] Token exchange failed: \(error)")
@@ -76,7 +76,7 @@ final class SpotifyAuthService: NSObject, ObservableObject {
 
     func logout() {
         KeychainHelper.delete(service: kcService, account: kcAccount)
-        currentToken    = nil
+        currentToken = nil
         isAuthenticated = false
     }
 
@@ -109,10 +109,10 @@ final class SpotifyAuthService: NSObject, ObservableObject {
         req.httpMethod = "POST"
         req.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         req.httpBody = [
-            "grant_type":    "authorization_code",
-            "code":          code,
-            "redirect_uri":  SpotifyConfig.redirectURI,
-            "client_id":     SpotifyConfig.clientID,
+            "grant_type": "authorization_code",
+            "code": code,
+            "redirect_uri": SpotifyConfig.redirectURI,
+            "client_id": SpotifyConfig.clientID,
             "code_verifier": verifier
         ].urlEncoded
 
@@ -133,7 +133,7 @@ final class SpotifyAuthService: NSObject, ObservableObject {
         ].urlEncoded
 
         let (data, _) = try await URLSession.shared.data(for: req)
-        let newToken  = AuthToken(from: try JSONDecoder().decode(TokenResponse.self, from: data))
+        let newToken = AuthToken(from: try JSONDecoder().decode(TokenResponse.self, from: data))
         persist(newToken)
         currentToken = newToken
         return newToken
@@ -147,9 +147,9 @@ final class SpotifyAuthService: NSObject, ObservableObject {
     }
 
     private func loadStoredToken() {
-        guard let data  = KeychainHelper.read(service: kcService, account: kcAccount),
+        guard let data = KeychainHelper.read(service: kcService, account: kcAccount),
               let token = try? JSONDecoder().decode(AuthToken.self, from: data) else { return }
-        currentToken    = token
+        currentToken = token
         isAuthenticated = !token.isExpired || token.refreshToken != nil
     }
 }

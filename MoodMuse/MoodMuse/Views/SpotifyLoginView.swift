@@ -55,7 +55,7 @@ struct SpotifyLoginView: View {
                 .opacity(logoOpacity)
                 .onAppear {
                     withAnimation(.spring(response: 0.7, dampingFraction: 0.6)) {
-                        logoScale   = 1.0
+                        logoScale = 1.0
                         logoOpacity = 1.0
                     }
                 }
