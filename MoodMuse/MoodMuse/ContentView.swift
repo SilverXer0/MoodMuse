@@ -1,24 +1,26 @@
+// ContentView.swift
+// MoodMuse
 //
-//  ContentView.swift
-//  MoodMuse
-//
-//  Created by Sharan Krishna on 5/20/25.
-//
+// Created by Sharan Krishna on 5/20/25.
 
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var appState: AppState
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        Group {
+            if appState.auth.isAuthenticated {
+                MainTabView()
+            } else {
+                SpotifyLoginView()
+            }
         }
-        .padding()
+        .animation(.easeInOut(duration: 0.4), value: appState.auth.isAuthenticated)
     }
 }
 
 #Preview {
     ContentView()
+        .environmentObject(AppState())
 }
