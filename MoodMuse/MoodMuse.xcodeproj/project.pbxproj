@@ -29,9 +29,22 @@
 		60EB1FD32DDC6ED900624F1E /* MoodMuseUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoodMuseUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		60EB1FFF2DDC6ED900624F1E /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 60EB1FBB2DDC6ED700624F1E /* MoodMuse */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		60EB1FBE2DDC6ED700624F1E /* MoodMuse */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				60EB1FFF2DDC6ED900624F1E /* PBXFileSystemSynchronizedBuildFileExceptionSet */,
+			);
 			path = MoodMuse;
 			sourceTree = "<group>";
 		};
